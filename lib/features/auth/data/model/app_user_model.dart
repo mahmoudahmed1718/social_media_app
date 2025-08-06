@@ -25,4 +25,12 @@ class AppUserModel extends AppUserEntity {
       BackendEndpoint.userEmail: email,
     };
   }
+
+  factory AppUserModel.fromFirebaseUser(dynamic user) {
+    return AppUserModel(
+      uId: user.uid,
+      name: user.displayName ?? '',
+      email: user.email ?? '',
+    );
+  }
 }
