@@ -12,6 +12,8 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return MaterialApp(
+      home: const Scaffold(body: Center(child: Text('Hello World'))),
+    );
   }
 }
