@@ -14,9 +14,10 @@ class MyTextField extends StatelessWidget {
   final IconButton? iconButton;
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: textEditingController,
       obscureText: obscureText,
+      validator: (value) => value!.isEmpty ? 'please Enter $hintText' : null,
       decoration: InputDecoration(
         suffixIcon: iconButton,
         hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),

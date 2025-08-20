@@ -19,6 +19,8 @@ class _RegsterPageBodyState extends State<RegsterPageBody> {
   final emailController = TextEditingController();
   final pWController = TextEditingController();
   final confirmpWController = TextEditingController();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   void dispose() {
     nameController.dispose();
@@ -35,98 +37,101 @@ class _RegsterPageBodyState extends State<RegsterPageBody> {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: ListView(
-              children: [
-                const SizedBox(height: 120),
-                Icon(
-                  Icons.lock_open_outlined,
-                  size: 80,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 20),
-                // welcome message
-                Center(
-                  child: Text(
-                    'Let\'s create an account for you ',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: 16,
-                    ),
+            child: Form(
+              key: formKey,
+              child: ListView(
+                children: [
+                  const SizedBox(height: 120),
+                  Icon(
+                    Icons.lock_open_outlined,
+                    size: 80,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                ),
-                const SizedBox(height: 25),
-                MyTextField(
-                  textEditingController: nameController,
-                  hintText: "Name",
-                  obscureText: false,
-                ),
-                const SizedBox(height: 10),
-                MyTextField(
-                  textEditingController: emailController,
-                  hintText: "Email",
-                  obscureText: false,
-                ),
-                const SizedBox(height: 10),
-                MyTextField(
-                  textEditingController: pWController,
-                  hintText: "Password",
-                  obscureText: isObscuredPw,
-                  iconButton: IconButton(
-                    icon: Icon(
-                      isObscuredPw ? Icons.visibility_off : Icons.visibility,
-                    ),
-                    onPressed: () =>
-                        setState(() => isObscuredPw = !isObscuredPw),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                MyTextField(
-                  textEditingController: confirmpWController,
-                  hintText: "Confirm Password",
-                  obscureText: isObscredConfirmPw,
-                  iconButton: IconButton(
-                    icon: Icon(
-                      isObscredConfirmPw
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                    ),
-                    onPressed: () => setState(
-                      () => isObscredConfirmPw = !isObscredConfirmPw,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 25),
-                MyButton(
-                  onTap: () {
-                    register();
-                  },
-                  text: 'Rigester',
-                ),
-                const SizedBox(height: 50),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'have an account? ',
+                  const SizedBox(height: 20),
+                  // welcome message
+                  Center(
+                    child: Text(
+                      'Let\'s create an account for you ',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
+                        fontSize: 16,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        ' Login now',
+                  ),
+                  const SizedBox(height: 25),
+                  MyTextField(
+                    textEditingController: nameController,
+                    hintText: "Name",
+                    obscureText: false,
+                  ),
+                  const SizedBox(height: 10),
+                  MyTextField(
+                    textEditingController: emailController,
+                    hintText: "Email",
+                    obscureText: false,
+                  ),
+                  const SizedBox(height: 10),
+                  MyTextField(
+                    textEditingController: pWController,
+                    hintText: "Password",
+                    obscureText: isObscuredPw,
+                    iconButton: IconButton(
+                      icon: Icon(
+                        isObscuredPw ? Icons.visibility_off : Icons.visibility,
+                      ),
+                      onPressed: () =>
+                          setState(() => isObscuredPw = !isObscuredPw),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  MyTextField(
+                    textEditingController: confirmpWController,
+                    hintText: "Confirm Password",
+                    obscureText: isObscredConfirmPw,
+                    iconButton: IconButton(
+                      icon: Icon(
+                        isObscredConfirmPw
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                      onPressed: () => setState(
+                        () => isObscredConfirmPw = !isObscredConfirmPw,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  MyButton(
+                    onTap: () {
+                      register();
+                    },
+                    text: 'Rigester',
+                  ),
+                  const SizedBox(height: 50),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'have an account? ',
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary,
-                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          ' Login now',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.inversePrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -143,21 +148,28 @@ class _RegsterPageBodyState extends State<RegsterPageBody> {
     // authcubit
     // final authcubit = context.read<AuthCubit>();
     // ensure password confirm
-    if (email.isNotEmpty &&
-        name.isNotEmpty &&
-        pw.isNotEmpty &&
-        confirmPw.isNotEmpty) {
-      if (pw == confirmPw) {
-        context.read<AuthCubit>().register(
-          email: email,
-          password: pw,
-          name: name,
-        );
+
+    if (formKey.currentState!.validate()) {
+      if (email.isNotEmpty &&
+          name.isNotEmpty &&
+          pw.isNotEmpty &&
+          confirmPw.isNotEmpty) {
+        if (pw == confirmPw) {
+          context.read<AuthCubit>().register(
+            email: email,
+            password: pw,
+            name: name,
+          );
+        } else {
+          snakBarMethod(context: context, message: 'passwords do not match');
+        }
       } else {
-        snakBarMethod(context: context, message: 'passwords do not match');
+        snakBarMethod(context: context, message: 'fill all the fields');
       }
     } else {
-      snakBarMethod(context: context, message: 'fill all the fields');
+      setState(() {
+        autovalidateMode = AutovalidateMode.always;
+      });
     }
   }
 }
