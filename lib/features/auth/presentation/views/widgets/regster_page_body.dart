@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:social_meda/core/helper/snak_bar_method.dart';
-import 'package:social_meda/features/auth/presentation/manger/cubit/auth_cubit.dart';
 import 'package:social_meda/features/auth/presentation/views/widgets/my_button.dart';
 import 'package:social_meda/features/auth/presentation/views/widgets/my_text_filed.dart';
 
