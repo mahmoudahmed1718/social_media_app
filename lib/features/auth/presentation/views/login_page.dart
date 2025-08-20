@@ -7,7 +7,8 @@ import 'package:social_meda/features/auth/presentation/views/widgets/login_page_
 
 class LoginPage extends StatelessWidget {
   static const routeName = 'login_page';
-  const LoginPage({super.key});
+  const LoginPage({super.key, this.togglePage});
+  final void Function()? togglePage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
