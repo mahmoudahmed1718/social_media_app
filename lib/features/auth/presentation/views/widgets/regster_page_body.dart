@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:social_meda/core/helper/snak_bar_method.dart';
+import 'package:social_meda/features/auth/presentation/manger/cubit/auth_cubit.dart';
 import 'package:social_meda/features/auth/presentation/views/widgets/my_button.dart';
 import 'package:social_meda/features/auth/presentation/views/widgets/my_text_filed.dart';
 
 class RegsterPageBody extends StatefulWidget {
-  const RegsterPageBody({Key? key}) : super(key: key);
+  const RegsterPageBody({super.key});
 
   @override
   State<RegsterPageBody> createState() => _RegsterPageBodyState();
@@ -16,6 +18,15 @@ class _RegsterPageBodyState extends State<RegsterPageBody> {
   final emailController = TextEditingController();
   final pWController = TextEditingController();
   final confirmpWController = TextEditingController();
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    pWController.dispose();
+    confirmpWController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,5 +124,28 @@ class _RegsterPageBodyState extends State<RegsterPageBody> {
         ),
       ),
     );
+  }
+
+  void register() {
+    final String name = nameController.text;
+    final String email = emailController.text;
+    final String pw = pWController.text;
+    final String confirmPw = confirmpWController.text;
+
+    // authcubit
+    // final authcubit = context.read<AuthCubit>();
+    // ensure password confirm
+    if (email.isNotEmpty &&
+        name.isNotEmpty &&
+        pw.isNotEmpty &&
+        confirmPw.isNotEmpty) {
+      if (pw == confirmPw) {
+        // authcubit.register(name, email, pw);
+      } else {
+        snakBarMethod(context: context, message: 'passwords do not match');
+      }
+    } else {
+      snakBarMethod(context: context, message: 'fill all the fields');
+    }
   }
 }
