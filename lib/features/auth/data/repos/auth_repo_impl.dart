@@ -46,13 +46,17 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
+  Future<void> signOut() async {
+    await firebaseAuthServices.signOut();
     throw UnimplementedError();
   }
 
   @override
-  Future<AppUserEntity?> getCurrentUser() {
-    throw UnimplementedError();
+  Future<AppUserEntity?> getCurrentUser() async {
+    var user = await firebaseAuthServices.getCurrentUser();
+    if (user == null) {
+      return null;
+    }
+    return AppUserModel.fromFirebaseUser(user);
   }
 }
