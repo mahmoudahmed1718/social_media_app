@@ -12,10 +12,10 @@ class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl({required this.firebaseAuthServices});
 
   @override
-  Future<Either<ServerFaileur, AppUserEntity>> signInWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<Either<ServerFaileur, AppUserEntity>> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     try {
       var user = await firebaseAuthServices.signInWithEmailAndPassword(
         email: email,
@@ -28,11 +28,11 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<ServerFaileur, AppUserEntity>> signUpWithEmailAndPassword(
-    String email,
-    String password,
-    String name,
-  ) async {
+  Future<Either<ServerFaileur, AppUserEntity>> signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+    required String name,
+  }) async {
     try {
       var user = await firebaseAuthServices.createUserWithEmailAndPassword(
         email: email,
