@@ -4,6 +4,7 @@ import 'package:social_meda/features/home/presentation/view/widgets/my_drawer.da
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  static const String routeName = "HomePage";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
