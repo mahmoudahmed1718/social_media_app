@@ -4,6 +4,7 @@ import 'package:social_meda/core/services/get_it_service.dart';
 import 'package:social_meda/core/utils/on_route_generate.dart';
 
 import 'package:social_meda/features/splash/presentation/view/splash_view.dart';
+import 'package:social_meda/features/theme/light_mode.dart';
 import 'package:social_meda/firebase_options.dart';
 
 void main() async {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: lightMode,
       onGenerateRoute: onGenerateRoutes,
       initialRoute: SplashView.routeName,
     );
