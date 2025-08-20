@@ -6,8 +6,8 @@ import 'package:social_meda/features/auth/presentation/manger/cubit/auth_cubit.d
 import 'package:social_meda/features/auth/presentation/views/widgets/regster_page_body_bloc_consumer.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key, this.togglePage});
-  final void Function()? togglePage;
+  const RegisterPage({super.key});
+
   static const String routeName = '/register';
   @override
   Widget build(BuildContext context) {
