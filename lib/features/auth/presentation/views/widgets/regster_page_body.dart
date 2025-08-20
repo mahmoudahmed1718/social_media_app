@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_meda/core/helper/snak_bar_method.dart';
+import 'package:social_meda/features/auth/presentation/manger/cubit/auth_cubit.dart';
 import 'package:social_meda/features/auth/presentation/views/widgets/my_button.dart';
 import 'package:social_meda/features/auth/presentation/views/widgets/my_text_filed.dart';
 
@@ -94,7 +96,12 @@ class _RegsterPageBodyState extends State<RegsterPageBody> {
                   ),
                 ),
                 const SizedBox(height: 25),
-                MyButton(onTap: () {}, text: 'Rigester'),
+                MyButton(
+                  onTap: () {
+                    register();
+                  },
+                  text: 'Rigester',
+                ),
                 const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +113,9 @@ class _RegsterPageBodyState extends State<RegsterPageBody> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: Text(
                         ' Login now',
                         style: TextStyle(
@@ -139,7 +148,11 @@ class _RegsterPageBodyState extends State<RegsterPageBody> {
         pw.isNotEmpty &&
         confirmPw.isNotEmpty) {
       if (pw == confirmPw) {
-        // authcubit.register(name, email, pw);
+        context.read<AuthCubit>().register(
+          email: email,
+          password: pw,
+          name: name,
+        );
       } else {
         snakBarMethod(context: context, message: 'passwords do not match');
       }

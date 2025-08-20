@@ -8,6 +8,7 @@ import 'package:social_meda/features/auth/presentation/views/widgets/regster_pag
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key, this.togglePage});
   final void Function()? togglePage;
+  static const String routeName = '/register';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

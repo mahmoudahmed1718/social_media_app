@@ -79,7 +79,9 @@ class _LoginPageBodyState extends State<LoginPageBody> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, '/register');
+                    },
                     child: Text(
                       '  Register now',
                       style: TextStyle(
