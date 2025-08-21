@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import 'package:social_meda/core/errors/custom_excption.dart';
 import 'package:social_meda/core/errors/server_faileur.dart';
+import 'package:social_meda/core/services/backend_endpoint.dart';
 import 'package:social_meda/core/services/database_service.dart';
 import 'package:social_meda/core/services/firebase_auth_service.dart';
 import 'package:social_meda/features/auth/data/model/app_user_model.dart';
@@ -45,7 +46,13 @@ class AuthRepoImpl implements AuthRepo {
         password: password,
         name: name,
       );
-      return right(AppUserModel.fromFirebaseUser(user));
+
+      final userModel = AppUserModel(uId: user!.uid, name: name, email: email);
+      await databaseService.addData(
+        path: BackendEndpoint.usersCollection,
+        data: userModel.toJson(),
+      );
+      return right(userModel);
     } on CustomException catch (e) {
       return left(ServerFaileur(message: e.message));
     }
