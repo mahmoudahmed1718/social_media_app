@@ -6,13 +6,6 @@ class SplashView extends StatelessWidget {
   static const routeName = '/';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.yellowAccent,
-
-        title: Text('Splash'),
-      ),
-      body: SplashViewBody(),
-    );
+    return Scaffold(body: SplashViewBody());
   }
 }

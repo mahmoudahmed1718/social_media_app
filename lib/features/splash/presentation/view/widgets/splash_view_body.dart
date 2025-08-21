@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_meda/core/utils/assets.dart';
 import 'package:social_meda/features/auth/presentation/views/login_page.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -9,40 +10,112 @@ class SplashViewBody extends StatefulWidget {
   State<SplashViewBody> createState() => _SplashViewBodyState();
 }
 
-class _SplashViewBodyState extends State<SplashViewBody> {
+class _SplashViewBodyState extends State<SplashViewBody>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _fadeAnimation;
+
   @override
   void initState() {
     super.initState();
-    excuteNavigation();
+
+    // Animation controller
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+
+    // Scale animation for logo
+    _scaleAnimation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOutBack,
+    );
+
+    // Fade animation for app name
+    _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+
+    // Start animation
+    _controller.forward();
+
+    // Navigate after animation
+    Future.delayed(const Duration(seconds: 3), excuteNavigation);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Spash'));
+    return Scaffold(
+      backgroundColor: Theme.of(
+        context,
+      ).colorScheme.surface, // or your brand color
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ScaleTransition(
+              scale: _scaleAnimation,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  Assets.assetsImagesAppLogo,
+                  height: 120,
+                  width: 120,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            FadeTransition(
+              opacity: _fadeAnimation,
+              child: Text(
+                "Meno",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent.shade700,
+                  letterSpacing: 2,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            FadeTransition(
+              opacity: _fadeAnimation,
+              child: Text(
+                "Social Media App",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey.shade600,
+                  letterSpacing: 1.5,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  void excuteNavigation() async {
-    Future.delayed(Duration(seconds: 2), () {
-      // ignore: use_build_context_synchronously
-      var user = FirebaseAuth.instance.currentUser;
+  void excuteNavigation() {
+    final user = FirebaseAuth.instance.currentUser;
 
-      if (user != null) {
-        // ignore: use_build_context_synchronously
-        Navigator.pushNamedAndRemoveUntil(
-          // ignore: use_build_context_synchronously
-          context,
-          LoginPage.routeName,
-          (route) => false,
-        );
-      } else {
-        // ignore: use_build_context_synchronously
-        Navigator.pushNamedAndRemoveUntil(
-          // ignore: use_build_context_synchronously
-          context,
-          LoginPage.routeName,
-          (route) => false,
-        );
-      }
-    });
+    if (user != null) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        LoginPage.routeName,
+        (route) => false,
+      );
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        LoginPage.routeName,
+        (route) => false,
+      );
+    }
   }
 }
