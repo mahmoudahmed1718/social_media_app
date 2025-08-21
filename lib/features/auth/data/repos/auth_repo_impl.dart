@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:social_meda/constant.dart';
 
 import 'package:social_meda/core/errors/custom_excption.dart';
 import 'package:social_meda/core/errors/server_faileur.dart';
 import 'package:social_meda/core/services/backend_endpoint.dart';
 import 'package:social_meda/core/services/database_service.dart';
 import 'package:social_meda/core/services/firebase_auth_service.dart';
+import 'package:social_meda/core/services/shared_prefence_singleton.dart';
 import 'package:social_meda/features/auth/data/model/app_user_model.dart';
 import 'package:social_meda/features/auth/domain/entites/app_user_entity.dart';
 import 'package:social_meda/features/auth/domain/repos/auth_repo.dart';
@@ -29,7 +33,12 @@ class AuthRepoImpl implements AuthRepo {
         email: email,
         password: password,
       );
-      return right(AppUserModel.fromFirebaseUser(user));
+      var userData = await databaseService.getData(
+        path: BackendEndpoint.usersCollection,
+        documentId: user!.uid,
+      );
+      saveUserData(userEntity: AppUserModel.fromJson(userData));
+      return right(AppUserModel.fromJson(userData));
     } on CustomException catch (e) {
       return left(ServerFaileur(message: e.message));
     }
@@ -82,5 +91,13 @@ class AuthRepoImpl implements AuthRepo {
     if (user != null) {
       await firebaseAuthServices.deleteUser();
     }
+  }
+
+  Future<AppUserEntity> saveUserData({
+    required AppUserEntity userEntity,
+  }) async {
+    var jsonData = jsonEncode(AppUserModel.fromEntity(userEntity).toJson());
+    await SharedPreferenceSingleton.setString(kUserData, jsonData);
+    return userEntity;
   }
 }
