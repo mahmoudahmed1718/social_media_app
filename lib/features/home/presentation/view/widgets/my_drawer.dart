@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_meda/core/helper/logout_helper.dart';
+
 import 'package:social_meda/features/auth/presentation/manger/cubit/auth_cubit.dart';
+
 import 'package:social_meda/features/home/presentation/view/widgets/my_drawer_tile.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -58,9 +61,9 @@ class MyDrawer extends StatelessWidget {
               // logout tile
               MyDrawerTile(
                 title: 'L O G O U T',
-                icon: Icons.login,
-                onTap: () {
-                  context.read<AuthCubit>().logout();
+                icon: Icons.logout, // better than login for logout action
+                onTap: () async {
+                  await LogoutHelper.showLogoutDialog(context);
                 },
               ),
             ],

@@ -117,7 +117,7 @@ class FirebaseAuthServices {
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
     // await GoogleSignIn().signOut();
-    await FacebookAuth.instance.logOut();
+    // await FacebookAuth.instance.logOut();
   }
 
   Future<User?> getCurrentUser() async {
@@ -136,5 +136,9 @@ class FirebaseAuthServices {
       );
       await user.reauthenticateWithCredential(credential);
     }
+  }
+
+  iUserLoggedIn() {
+    return FirebaseAuth.instance.currentUser != null;
   }
 }

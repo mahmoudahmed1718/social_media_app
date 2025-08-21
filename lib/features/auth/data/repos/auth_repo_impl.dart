@@ -60,6 +60,7 @@ class AuthRepoImpl implements AuthRepo {
 
       final userModel = AppUserModel(uId: user!.uid, name: name, email: email);
       await databaseService.addData(
+        documentId: user.uid,
         path: BackendEndpoint.usersCollection,
         data: userModel.toJson(),
       );

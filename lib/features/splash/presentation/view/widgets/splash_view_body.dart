@@ -1,7 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_meda/core/services/firebase_auth_service.dart';
 import 'package:social_meda/core/utils/assets.dart';
 import 'package:social_meda/features/auth/presentation/views/login_page.dart';
+import 'package:social_meda/features/home/presentation/view/home_page.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -102,12 +103,12 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
   void excuteNavigation() {
-    final user = FirebaseAuth.instance.currentUser;
+    var isUserLoggedIn = FirebaseAuthServices().isUserLoggedIn();
 
-    if (user != null) {
+    if (isUserLoggedIn) {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        LoginPage.routeName,
+        HomePage.routeName,
         (route) => false,
       );
     } else {
