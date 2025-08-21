@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:social_meda/core/errors/custom_excption.dart';
 import 'package:social_meda/core/errors/server_faileur.dart';
@@ -40,6 +41,7 @@ class AuthRepoImpl implements AuthRepo {
     required String password,
     required String name,
   }) async {
+    User? user;
     try {
       var user = await firebaseAuthServices.createUserWithEmailAndPassword(
         email: email,
@@ -54,14 +56,17 @@ class AuthRepoImpl implements AuthRepo {
       );
       return right(userModel);
     } on CustomException catch (e) {
+      await deleteuser(user);
       return left(ServerFaileur(message: e.message));
+    } catch (e) {
+      deleteuser(user);
+      return left(ServerFaileur(message: 'An unknown error occurred.'));
     }
   }
 
   @override
   Future<void> signOut() async {
     await firebaseAuthServices.signOut();
-    throw UnimplementedError();
   }
 
   @override
@@ -71,5 +76,11 @@ class AuthRepoImpl implements AuthRepo {
       return null;
     }
     return AppUserModel.fromFirebaseUser(user);
+  }
+
+  Future<void> deleteuser(User? user) async {
+    if (user != null) {
+      await firebaseAuthServices.deleteUser();
+    }
   }
 }
