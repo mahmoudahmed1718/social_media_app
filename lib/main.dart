@@ -7,10 +7,13 @@ import 'package:social_meda/features/splash/presentation/view/splash_view.dart';
 import 'package:social_meda/features/theme/light_mode.dart';
 import 'package:social_meda/firebase_options.dart';
 
+import 'core/services/shared_prefence_singleton.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   setupGetIt();
+  await SharedPreferenceSingleton.init();
   runApp(const MyApp());
 }
 
