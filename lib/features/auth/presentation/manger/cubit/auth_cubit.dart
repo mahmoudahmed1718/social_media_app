@@ -37,11 +37,4 @@ class AuthCubit extends Cubit<AuthState> {
       (r) => emit(AuthSuccess(user: r)),
     );
   }
-
-  Future<void> logout() async {
-    await authRepo.signOut();
-  }
-
-  // ignore: recursive_getters
-  AppUserEntity? get currentUser => currentUser;
 }
