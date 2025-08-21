@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_meda/core/helper/logout_helper.dart';
 
-import 'package:social_meda/features/auth/presentation/manger/cubit/auth_cubit.dart';
+import 'package:social_meda/core/helper/logout_helper.dart';
 
 import 'package:social_meda/features/home/presentation/view/widgets/my_drawer_tile.dart';
 
@@ -40,8 +38,7 @@ class MyDrawer extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                   // navigate to profile page
-                  final user = context.read<AuthCubit>().currentUser;
-                  String? uid = user!.uId;
+
                   //! should Navigate to profile page
                 },
               ),
