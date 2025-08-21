@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_meda/features/auth/presentation/views/login_page.dart';
 
@@ -23,7 +24,25 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   void excuteNavigation() async {
     Future.delayed(Duration(seconds: 2), () {
       // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, LoginPage.routeName);
+      var user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamedAndRemoveUntil(
+          // ignore: use_build_context_synchronously
+          context,
+          LoginPage.routeName,
+          (route) => false,
+        );
+      } else {
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamedAndRemoveUntil(
+          // ignore: use_build_context_synchronously
+          context,
+          LoginPage.routeName,
+          (route) => false,
+        );
+      }
     });
   }
 }
