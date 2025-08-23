@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:social_meda/core/helper/logout_helper.dart';
 
 import 'package:social_meda/features/home/presentation/view/widgets/my_drawer_tile.dart';
+import 'package:social_meda/features/profile/presentation/view/profile_page.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -37,9 +38,8 @@ class MyDrawer extends StatelessWidget {
                 icon: Icons.person,
                 onTap: () {
                   Navigator.pop(context);
-                  // navigate to profile page
 
-                  //! should Navigate to profile page
+                  Navigator.pushNamed(context, ProfilePage.routeName);
                 },
               ),
               // search tile
