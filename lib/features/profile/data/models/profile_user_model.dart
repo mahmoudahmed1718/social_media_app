@@ -29,9 +29,9 @@ class ProfileUserModel extends ProfileUserEntity {
     return {
       BackendEndpoint.userBio: bio,
       BackendEndpoint.userProfileImageUrl: profileImageUrl,
-      BackendEndpoint.userUsername: username,
+      BackendEndpoint.username: username,
       BackendEndpoint.userUid: uId,
-      BackendEndpoint.userName: name,
+      BackendEndpoint.name: name,
       BackendEndpoint.userEmail: email,
     };
   }
@@ -40,9 +40,9 @@ class ProfileUserModel extends ProfileUserEntity {
     return ProfileUserModel(
       bio: json[BackendEndpoint.userBio] ?? '',
       profileImageUrl: json[BackendEndpoint.userProfileImageUrl] ?? '',
-      username: json[BackendEndpoint.userUsername] ?? '',
+      username: json[BackendEndpoint.username] ?? '',
       uId: json[BackendEndpoint.userUid] ?? '',
-      name: json[BackendEndpoint.userName] ?? '',
+      name: json[BackendEndpoint.name] ?? '',
       email: json[BackendEndpoint.userEmail] ?? '',
     );
   }

@@ -7,7 +7,7 @@ class AppUserModel extends AppUserEntity {
   factory AppUserModel.fromJson(Map<String, dynamic> json) {
     return AppUserModel(
       uId: json[BackendEndpoint.userUid],
-      name: json[BackendEndpoint.userName],
+      name: json[BackendEndpoint.name],
       email: json[BackendEndpoint.userEmail],
     );
   }
@@ -21,7 +21,7 @@ class AppUserModel extends AppUserEntity {
   Map<String, dynamic> toJson() {
     return {
       BackendEndpoint.userUid: uId,
-      BackendEndpoint.userName: name,
+      BackendEndpoint.name: name,
       BackendEndpoint.userEmail: email,
     };
   }

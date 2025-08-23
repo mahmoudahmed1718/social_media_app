@@ -1,5 +1,6 @@
 import 'package:social_meda/core/services/backend_endpoint.dart';
 import 'package:social_meda/core/services/database_service.dart';
+import 'package:social_meda/features/profile/data/models/profile_user_model.dart';
 import 'package:social_meda/features/profile/domain/entities/profile_user_entity.dart';
 import 'package:social_meda/features/profile/domain/repo/profile_user_repo.dart';
 
@@ -13,9 +14,7 @@ class ProfileUserRepoImpl implements ProfileUserRepo {
       documentId: uid,
       path: BackendEndpoint.usersCollection,
     );
-    return ProfileUserEntity.formEntity(
-      profileUserEntity: userData as ProfileUserEntity,
-    );
+    return ProfileUserModel.fromJson(userData);
   }
 
   @override
@@ -25,10 +24,11 @@ class ProfileUserRepoImpl implements ProfileUserRepo {
         documentId: profileUserEntity!.uId,
         path: BackendEndpoint.usersCollection,
         data: {
-          BackendEndpoint.userName: profileUserEntity.username,
+          BackendEndpoint.username: profileUserEntity.username,
           BackendEndpoint.userProfileImageUrl:
               profileUserEntity.profileImageUrl,
           BackendEndpoint.userBio: profileUserEntity.bio,
+          BackendEndpoint.name: profileUserEntity.name,
         },
       );
       return updateData;
