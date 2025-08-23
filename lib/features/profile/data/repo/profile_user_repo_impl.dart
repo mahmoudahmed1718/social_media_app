@@ -19,8 +19,21 @@ class ProfileUserRepoImpl implements ProfileUserRepo {
   }
 
   @override
-  Future<void> updateProfileUser({ProfileUserEntity? profileUserEntity}) {
-    // TODO: implement updateProfileUser
-    throw UnimplementedError();
+  Future<void> updateProfileUser({ProfileUserEntity? profileUserEntity}) async {
+    try {
+      var updateData = await databaseService.updateData(
+        documentId: profileUserEntity!.uId,
+        path: BackendEndpoint.usersCollection,
+        data: {
+          BackendEndpoint.userName: profileUserEntity.username,
+          BackendEndpoint.userProfileImageUrl:
+              profileUserEntity.profileImageUrl,
+          BackendEndpoint.userBio: profileUserEntity.bio,
+        },
+      );
+      return updateData;
+    } catch (e) {
+      throw Exception('Failed to update profile user: $e');
+    }
   }
 }
