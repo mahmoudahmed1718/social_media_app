@@ -12,4 +12,17 @@ class ProfileUserEntity extends AppUserEntity {
     required super.name,
     required super.email,
   });
+
+  factory ProfileUserEntity.formEntity({
+    required ProfileUserEntity profileUserEntity,
+  }) {
+    return ProfileUserEntity(
+      bio: profileUserEntity.bio,
+      profileImageUrl: profileUserEntity.profileImageUrl,
+      username: profileUserEntity.username,
+      uId: profileUserEntity.uId,
+      name: profileUserEntity.name,
+      email: profileUserEntity.email,
+    );
+  }
 }
