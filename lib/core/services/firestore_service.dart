@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:social_meda/core/errors/server_faileur.dart';
 import 'package:social_meda/core/services/database_service.dart';
 
 class FirestoreService implements DatabaseService {
@@ -44,5 +45,24 @@ class FirestoreService implements DatabaseService {
     Map<String, dynamic>? query,
   }) {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateData({
+    required String path,
+    required String documentId,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      var updateData = await firestore
+          .collection(path)
+          .doc(documentId)
+          .update(data);
+      return updateData;
+    } on ServerFaileur catch (e) {
+      throw ServerFaileur(message: e.message);
+    } catch (e) {
+      throw ServerFaileur(message: e.toString());
+    }
   }
 }
