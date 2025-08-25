@@ -15,12 +15,13 @@ class EditProfilePageBody extends StatefulWidget {
 class _EditProfilePageBodyState extends State<EditProfilePageBody> {
   late final TextEditingController nameController;
   late final TextEditingController bioController;
-
+  late final TextEditingController userNamecontroller;
   @override
   void initState() {
     super.initState();
     nameController = TextEditingController(text: widget.user.name);
     bioController = TextEditingController(text: widget.user.bio);
+    userNamecontroller = TextEditingController(text: widget.user.username);
   }
 
   @override
