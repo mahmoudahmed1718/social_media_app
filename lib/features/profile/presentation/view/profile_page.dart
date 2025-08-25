@@ -4,6 +4,7 @@ import 'package:social_meda/core/helper/get_user_data.dart';
 import 'package:social_meda/core/services/get_it_service.dart';
 import 'package:social_meda/features/profile/domain/repo/profile_user_repo.dart';
 import 'package:social_meda/features/profile/presentation/manger/cubit/profile_cubit.dart';
+import 'package:social_meda/features/profile/presentation/view/edit_profile_page.dart';
 import 'package:social_meda/features/profile/presentation/view/widgets/profile_page_body_bloc_Builder.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -16,11 +17,19 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-
-        title: Text(
-          getUserData().email,
-          style: TextStyle(color: Theme.of(context).colorScheme.primary),
-        ),
+        title: Text(getUserData().name),
+        foregroundColor: Theme.of(context).colorScheme.primary,
+        // edit profile button
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Navigator.push(context, MaterialPageRoute(builder: (context) {
+              //   return EditProfilePage(user: );
+              // }));
+            },
+            icon: const Icon(Icons.edit),
+          ),
+        ],
       ),
       body: BlocProvider(
         create: (context) {
