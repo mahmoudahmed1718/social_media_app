@@ -5,7 +5,10 @@ sealed class ProfileState {}
 
 final class ProfileInitial extends ProfileState {}
 
-final class ProfileLoaded extends ProfileState {}
+final class ProfileLoaded extends ProfileState {
+  final ProfileUserEntity profileUser;
+  ProfileLoaded({required this.profileUser});
+}
 
 final class ProfileLoading extends ProfileState {}
 
