@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_meda/features/profile/domain/entities/profile_user_entity.dart';
+import 'package:social_meda/features/profile/presentation/view/widgets/bio_box.dart';
 
 class ProfilePageBody extends StatelessWidget {
   const ProfilePageBody({super.key, required this.profileUser});
@@ -9,18 +10,52 @@ class ProfilePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(
-          radius: 40,
-          backgroundImage: NetworkImage(profileUser.profileImageUrl),
-        ),
-        const SizedBox(height: 12),
         Text(
-          profileUser.username,
-          style: Theme.of(context).textTheme.titleLarge,
+          profileUser.email,
+          style: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
-
-        Text(profileUser.bio, style: Theme.of(context).textTheme.bodyMedium),
-        Text(profileUser.email, style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: 25),
+        Container(
+          height: 120,
+          width: 120,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          child: Center(
+            child: Icon(
+              Icons.person,
+              size: 70,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+        ),
+        const SizedBox(height: 25),
+        // bio box
+        Padding(
+          padding: const EdgeInsets.only(left: 25),
+          child: Row(
+            children: [
+              Text(
+                'Bio',
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        BioBox(text: profileUser.bio),
+        Padding(
+          padding: const EdgeInsets.only(left: 25, top: 25),
+          child: Row(
+            children: [
+              Text(
+                'Posts',
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
