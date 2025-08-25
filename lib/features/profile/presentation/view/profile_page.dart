@@ -23,8 +23,13 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       body: BlocProvider(
-        create: (context) =>
-            ProfileCubit(profileUserRepo: getIt.get<ProfileUserRepo>()),
+        create: (context) {
+          final cubit = ProfileCubit(
+            profileUserRepo: getIt.get<ProfileUserRepo>(),
+          );
+          cubit.fetchProfileUser(uid: uid); // trigger fetch once here
+          return cubit;
+        },
 
         child: ProfilePageBodyBlocBuilder(),
       ),

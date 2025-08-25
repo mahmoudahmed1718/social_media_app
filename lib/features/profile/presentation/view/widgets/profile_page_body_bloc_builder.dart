@@ -13,7 +13,7 @@ class ProfilePageBodyBlocBuilder extends StatelessWidget {
         if (state is ProfileLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ProfileLoaded) {
-          return ProfilePageBody();
+          return ProfilePageBody(profileUser: state.profileUser);
         } else if (state is ProfileError) {
           return Center(child: Text(state.message));
         } else {
