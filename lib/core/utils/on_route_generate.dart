@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_meda/core/helper/get_user_data.dart';
 import 'package:social_meda/features/auth/presentation/views/login_page.dart';
 import 'package:social_meda/features/auth/presentation/views/register_page.dart';
 import 'package:social_meda/features/home/presentation/view/home_page.dart';
@@ -17,8 +18,11 @@ Route<dynamic> onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const RegisterPage());
     case HomePage.routeName:
       return MaterialPageRoute(builder: (context) => const HomePage());
+
     case ProfilePage.routeName:
-      return MaterialPageRoute(builder: (context) => const ProfilePage());
+      return MaterialPageRoute(
+        builder: (context) => ProfilePage(uid: getUserData().uId),
+      );
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold());
   }
