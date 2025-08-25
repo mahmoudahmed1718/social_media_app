@@ -7,6 +7,7 @@ import 'package:social_meda/features/profile/presentation/manger/cubit/profile_c
 import 'package:social_meda/features/profile/presentation/view/widgets/edit_profile_page_body.dart';
 
 class EditProfilePage extends StatelessWidget {
+  static const String routeName = '/editProfile';
   final ProfileUserEntity user; // ✅ pass the full user
 
   const EditProfilePage({super.key, required this.user});
