@@ -14,33 +14,38 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(getUserData().name),
-        foregroundColor: Theme.of(context).colorScheme.primary,
-        // edit profile button
-        actions: [
-          IconButton(
-            onPressed: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) {
-              //   return EditProfilePage(user: );
-              // }));
-            },
-            icon: const Icon(Icons.edit),
-          ),
-        ],
-      ),
-      body: BlocProvider(
-        create: (context) {
-          final cubit = ProfileCubit(
-            profileUserRepo: getIt.get<ProfileUserRepo>(),
+    return BlocProvider(
+      create: (context) {
+        final cubit = ProfileCubit(
+          profileUserRepo: getIt.get<ProfileUserRepo>(),
+        );
+        cubit.fetchProfileUser(uid: uid); // trigger fetch once here
+        return cubit;
+      },
+      child: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(getUserData().name),
+              foregroundColor: Theme.of(context).colorScheme.primary,
+              actions: [
+                if (state is ProfileLoaded)
+                  IconButton(
+                    icon: const Icon(Icons.edit),
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        EditProfilePage.routeName,
+                        arguments: state.profileUser,
+                      );
+                    },
+                  ),
+              ],
+            ),
+            body: const ProfilePageBodyBlocBuilder(),
           );
-          cubit.fetchProfileUser(uid: uid); // trigger fetch once here
-          return cubit;
         },
-
-        child: ProfilePageBodyBlocBuilder(),
       ),
     );
   }

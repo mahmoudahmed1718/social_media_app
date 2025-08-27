@@ -15,6 +15,11 @@ class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Edit Profile'),
+        centerTitle: true,
+        foregroundColor: Theme.of(context).colorScheme.primary,
+      ),
       body: BlocProvider(
         create: (context) =>
             ProfileCubit(profileUserRepo: getIt.get<ProfileUserRepo>()),
