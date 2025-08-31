@@ -13,6 +13,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> fetchProfileUser({required String uid}) async {
     emit(ProfileLoading());
     final user = await profileUserRepo.getProfileUser(uid: uid);
+
     if (user != null) {
       emit(ProfileLoaded(profileUser: user));
     } else {

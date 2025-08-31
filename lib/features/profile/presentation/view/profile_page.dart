@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_meda/core/helper/get_user_data.dart';
 import 'package:social_meda/core/services/get_it_service.dart';
 import 'package:social_meda/features/profile/domain/repo/profile_user_repo.dart';
 import 'package:social_meda/features/profile/presentation/manger/cubit/profile_cubit.dart';
@@ -27,7 +26,7 @@ class ProfilePage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text(getUserData().name),
+              title: Text(''),
               foregroundColor: Theme.of(context).colorScheme.primary,
               actions: [
                 if (state is ProfileLoaded)
