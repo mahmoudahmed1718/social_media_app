@@ -56,8 +56,6 @@ class _EditProfilePageBodyState extends State<EditProfilePageBody> {
             const SnackBar(content: Text('Profile updated successfully ✅')),
           );
 
-          // ✅ Just pop and return updated user to parent
-          // Navigator.pop(context, state.profileUser);
           () async {
             final updatedUser = await Navigator.push(
               context,
