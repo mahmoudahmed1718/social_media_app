@@ -6,7 +6,7 @@ import 'package:social_meda/constant.dart';
 
 import 'package:social_meda/core/errors/custom_excption.dart';
 import 'package:social_meda/core/errors/server_faileur.dart';
-import 'package:social_meda/core/services/backend_endpoint.dart';
+import 'package:social_meda/core/services/backend_point.dart';
 import 'package:social_meda/core/services/database_service.dart';
 import 'package:social_meda/core/services/firebase_auth_service.dart';
 import 'package:social_meda/core/services/shared_prefence_singleton.dart';
@@ -34,7 +34,7 @@ class AuthRepoImpl implements AuthRepo {
         password: password,
       );
       var userData = await databaseService.getData(
-        path: BackendEndpoint.usersCollection,
+        path: BackEndpoints.usersCollection,
         documentId: user!.uid,
       );
       saveUserData(userEntity: AppUserModel.fromJson(userData));
@@ -61,7 +61,7 @@ class AuthRepoImpl implements AuthRepo {
       final userModel = AppUserModel(uId: user!.uid, name: name, email: email);
       await databaseService.addData(
         documentId: user.uid,
-        path: BackendEndpoint.usersCollection,
+        path: BackEndpoints.usersCollection,
         data: userModel.toJson(),
       );
       return right(userModel);

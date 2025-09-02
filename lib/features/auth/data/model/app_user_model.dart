@@ -1,4 +1,4 @@
-import 'package:social_meda/core/services/backend_endpoint.dart';
+import 'package:social_meda/core/services/backend_point.dart';
 import 'package:social_meda/features/auth/domain/entites/app_user_entity.dart';
 
 class AppUserModel extends AppUserEntity {
@@ -6,9 +6,9 @@ class AppUserModel extends AppUserEntity {
 
   factory AppUserModel.fromJson(Map<String, dynamic> json) {
     return AppUserModel(
-      uId: json[BackendEndpoint.userUid],
-      name: json[BackendEndpoint.name],
-      email: json[BackendEndpoint.userEmail],
+      uId: json[BackEndpoints.userUid],
+      name: json[BackEndpoints.name],
+      email: json[BackEndpoints.userEmail],
     );
   }
   factory AppUserModel.fromEntity(AppUserEntity entity) {
@@ -20,9 +20,9 @@ class AppUserModel extends AppUserEntity {
   }
   Map<String, dynamic> toJson() {
     return {
-      BackendEndpoint.userUid: uId,
-      BackendEndpoint.name: name,
-      BackendEndpoint.userEmail: email,
+      BackEndpoints.userUid: uId,
+      BackEndpoints.name: name,
+      BackEndpoints.userEmail: email,
     };
   }
 

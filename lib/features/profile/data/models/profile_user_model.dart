@@ -1,4 +1,4 @@
-import 'package:social_meda/core/services/backend_endpoint.dart';
+import 'package:social_meda/core/services/backend_point.dart';
 import 'package:social_meda/features/profile/domain/entities/profile_user_entity.dart';
 
 class ProfileUserModel extends ProfileUserEntity {
@@ -27,23 +27,23 @@ class ProfileUserModel extends ProfileUserEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      BackendEndpoint.userBio: bio,
-      BackendEndpoint.userProfileImageUrl: profileImageUrl,
-      BackendEndpoint.username: username,
-      BackendEndpoint.userUid: uId,
-      BackendEndpoint.name: name,
-      BackendEndpoint.userEmail: email,
+      BackEndpoints.userBio: bio,
+      BackEndpoints.userProfileImageUrl: profileImageUrl,
+      BackEndpoints.username: username,
+      BackEndpoints.userUid: uId,
+      BackEndpoints.name: name,
+      BackEndpoints.userEmail: email,
     };
   }
 
   factory ProfileUserModel.fromJson(Map<String, dynamic> json) {
     return ProfileUserModel(
-      bio: json[BackendEndpoint.userBio] ?? '',
-      profileImageUrl: json[BackendEndpoint.userProfileImageUrl] ?? '',
-      username: json[BackendEndpoint.username] ?? '',
-      uId: json[BackendEndpoint.userUid] ?? '',
-      name: json[BackendEndpoint.name] ?? '',
-      email: json[BackendEndpoint.userEmail] ?? '',
+      bio: json[BackEndpoints.userBio] ?? '',
+      profileImageUrl: json[BackEndpoints.userProfileImageUrl] ?? '',
+      username: json[BackEndpoints.username] ?? '',
+      uId: json[BackEndpoints.userUid] ?? '',
+      name: json[BackEndpoints.name] ?? '',
+      email: json[BackEndpoints.userEmail] ?? '',
     );
   }
 }

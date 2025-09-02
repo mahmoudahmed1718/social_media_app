@@ -1,4 +1,4 @@
-abstract class BackendEndpoint {
+abstract class BackEndpoints {
   static const String userUid = 'uId';
   static const String name = 'name';
   static const String userEmail = 'email';
@@ -6,4 +6,5 @@ abstract class BackendEndpoint {
   static const String userBio = 'bio';
   static const String username = 'username';
   static const String usersCollection = 'users';
+  static const String imagesBucket = 'images';
 }

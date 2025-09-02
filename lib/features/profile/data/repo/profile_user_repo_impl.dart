@@ -1,4 +1,4 @@
-import 'package:social_meda/core/services/backend_endpoint.dart';
+import 'package:social_meda/core/services/backend_point.dart';
 import 'package:social_meda/core/services/database_service.dart';
 import 'package:social_meda/features/profile/data/models/profile_user_model.dart';
 import 'package:social_meda/features/profile/domain/entities/profile_user_entity.dart';
@@ -12,7 +12,7 @@ class ProfileUserRepoImpl implements ProfileUserRepo {
   Future<ProfileUserEntity?> getProfileUser({required String uid}) async {
     final userData = await databaseService.getData(
       documentId: uid,
-      path: BackendEndpoint.usersCollection,
+      path: BackEndpoints.usersCollection,
     );
     return ProfileUserModel.fromJson(userData);
   }
@@ -22,13 +22,12 @@ class ProfileUserRepoImpl implements ProfileUserRepo {
     try {
       var updateData = await databaseService.updateData(
         documentId: profileUserEntity!.uId,
-        path: BackendEndpoint.usersCollection,
+        path: BackEndpoints.usersCollection,
         data: {
-          BackendEndpoint.username: profileUserEntity.username,
-          BackendEndpoint.userProfileImageUrl:
-              profileUserEntity.profileImageUrl,
-          BackendEndpoint.userBio: profileUserEntity.bio,
-          BackendEndpoint.name: profileUserEntity.name,
+          BackEndpoints.username: profileUserEntity.username,
+          BackEndpoints.userProfileImageUrl: profileUserEntity.profileImageUrl,
+          BackEndpoints.userBio: profileUserEntity.bio,
+          BackEndpoints.name: profileUserEntity.name,
         },
       );
       return updateData;
