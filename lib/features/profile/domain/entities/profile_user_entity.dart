@@ -1,16 +1,20 @@
+import 'dart:io';
+
 import 'package:social_meda/features/auth/domain/entites/app_user_entity.dart';
 
 class ProfileUserEntity extends AppUserEntity {
   final String bio;
-  final String profileImageUrl;
+  String? profileImageUrl;
+  final File imageFile;
   final String username;
   ProfileUserEntity({
     required this.bio,
-    required this.profileImageUrl,
+    required this.imageFile,
     required this.username,
     required super.uId,
     required super.name,
     required super.email,
+    this.profileImageUrl,
   });
 
   factory ProfileUserEntity.formEntity({
@@ -23,6 +27,7 @@ class ProfileUserEntity extends AppUserEntity {
       uId: profileUserEntity.uId,
       name: profileUserEntity.name,
       email: profileUserEntity.email,
+      imageFile: profileUserEntity.imageFile,
     );
   }
 }

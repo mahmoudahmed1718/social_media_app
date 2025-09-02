@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:social_meda/core/services/backend_point.dart';
 import 'package:social_meda/features/profile/domain/entities/profile_user_entity.dart';
 
 class ProfileUserModel extends ProfileUserEntity {
   ProfileUserModel({
     required super.bio,
-    required super.profileImageUrl,
+    super.profileImageUrl,
+    required super.imageFile,
     required super.username,
     required super.uId,
     required super.name,
@@ -22,6 +25,7 @@ class ProfileUserModel extends ProfileUserEntity {
       uId: uId,
       name: name,
       email: email,
+      imageFile: imageFile,
     );
   }
 
@@ -38,6 +42,7 @@ class ProfileUserModel extends ProfileUserEntity {
 
   factory ProfileUserModel.fromJson(Map<String, dynamic> json) {
     return ProfileUserModel(
+      imageFile: File(json[BackEndpoints.userProfileImageUrl] ?? ''),
       bio: json[BackEndpoints.userBio] ?? '',
       profileImageUrl: json[BackEndpoints.userProfileImageUrl] ?? '',
       username: json[BackEndpoints.username] ?? '',

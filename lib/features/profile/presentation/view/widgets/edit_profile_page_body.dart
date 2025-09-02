@@ -36,12 +36,14 @@ class _EditProfilePageBodyState extends State<EditProfilePageBody> {
 
   void _updateProfile() {
     final updatedUser = ProfileUserEntity(
+      imageFile: widget.user.imageFile,
       uId: widget.user.uId, // keep old uid
       email: widget.user.email, // keep old email
       username: userNameController.text, // updated username
       profileImageUrl: widget.user.profileImageUrl, // keep old image
       name: nameController.text, // updated name
-      bio: bioController.text, // updated bio
+      bio: bioController.text,
+      // updated bio
     );
 
     context.read<ProfileCubit>().updateProfileUser(profileUser: updatedUser);
